@@ -1,0 +1,32 @@
+{
+  "name": "wish-genius",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wish genius App",
+  "workspaces": [
+    "api",
+    "app"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build --workspace=app",
+    "dev": "npm run dev --workspace=api",
+    "start": "npm run start --workspace=app",
+    "dev:api": "npm run build && npm run dev --workspace=api",
+    "lint": "standard --fix '/app/**/*.js' '/app/**/*.jsx' '/api/**/*.js' '/api/**/*.jsx'"
+  },
+  "author": "Jose Antonio 'Jopax' Paz",
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json",
+    "rules": {
+      "indent": [
+        "error",
+        2
+      ]
+    }
+  },
+  "devDependencies": {
+    "standard": "17.0.0"
+  }
+}

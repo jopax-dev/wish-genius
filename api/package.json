@@ -1,0 +1,28 @@
+{
+  "name": "wish-genius-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wish Genius Api",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node --watch index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=test PORT=3003 jest --verbose tests/regalos.test.js",
+    "test:watch": "npm run test -- --watch"
+  },
+  "author": "Jose Antonio 'Jopax' Paz",
+  "license": "ISC",
+  "dependencies": {
+    "@sentry/node": "7.38.0",
+    "@sentry/tracing": "7.38.0",
+    "bcrypt": "5.1.0",
+    "cors": "2.8.5",
+    "cross-env": "7.0.3",
+    "dotenv": "16.0.3",
+    "express": "4.18.2",
+    "jsonwebtoken": "9.0.0",
+    "express-oauth2-jwt-bearer": "1.1.0",
+    "mongoose": "6.10.0",
+    "mongoose-unique-validator": "3.1.0"
+  }
+}
