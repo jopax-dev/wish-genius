@@ -28,6 +28,10 @@ const regaloSchema = new Schema({
   comprado: {
     type: Boolean,
     default: false
+  },
+  toOther: {
+    type: Boolean,
+    default: false
   }
 })
 

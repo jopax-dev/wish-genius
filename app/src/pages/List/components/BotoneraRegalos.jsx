@@ -1,7 +1,6 @@
 import { useUser } from '../../../hooks/useUser'
 import { useGifts } from '../../../hooks/useGifts'
-import { FormButton } from '../../../components/FormContainer'
-import { AlreadyBought } from '../../../components/StyledGifts'
+import { AlreadyBought, ButtonPanel } from '../../../components/StyledGifts'
 
 export const BotoneraRegalos = ({ applicant, buyer, info, refreshState }) => {
   const { assign, remove, purchased, purchasedAlone } = useGifts()
@@ -10,12 +9,15 @@ export const BotoneraRegalos = ({ applicant, buyer, info, refreshState }) => {
   const giftId = gift.id
 
   return (
-    <>
-      {applicant !== userId && !buyer && <span><FormButton onClick={async () => { await assign({ giftId }); refreshState() }}>Me lo quedo</FormButton></span>}
-      {applicant === userId && !buyer && <span><FormButton onClick={async () => { await remove({ giftId }); refreshState() }}>Eliminar</FormButton></span>}
-      {buyer === userId && <span><FormButton onClick={async () => { await purchased({ info }); refreshState() }}>Ya lo he comprado</FormButton></span>}
-      {buyer === userId && <span><FormButton onClick={async () => { await purchasedAlone({ giftId }); refreshState() }}>Comprado solo yo</FormButton></span>}
+    <span>
+      {(applicant !== userId || gift.toOther) && !buyer && <><ButtonPanel onClick={async () => { await assign({ giftId }); refreshState() }}>Me lo quedo</ButtonPanel></>}
+      {applicant === userId && !buyer && <><ButtonPanel onClick={async () => { await remove({ giftId }); refreshState() }}>Eliminar</ButtonPanel></>}
+      {buyer === userId &&
+        <>
+          <ButtonPanel onClick={async () => { await purchased({ info }); refreshState() }}>Ya lo he comprado</ButtonPanel>
+          <ButtonPanel onClick={async () => { await purchasedAlone({ giftId }); refreshState() }}>Comprado solo yo</ButtonPanel>
+        </>}
       {buyer && buyer !== userId && <AlreadyBought>Ya asignado</AlreadyBought>}
-    </>
+    </span>
   )
 }

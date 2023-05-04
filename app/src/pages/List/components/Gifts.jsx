@@ -11,6 +11,7 @@ const EmptyList = () => {
 
 export const Gifts = ({ gifstList, listInfo, refreshState }) => {
   if (gifstList.every(item => item === false)) return <EmptyList />
+  console.log({ gifstList })
   return (
     <GiftContainer>
       {gifstList

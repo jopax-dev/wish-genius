@@ -1,14 +1,19 @@
 import { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { addGift } from '../../../services/giftService'
-import { GiftForm, GiftFormBody, GiftInput } from '../../../components/StyledGifts'
+import { GiftForm, GiftFormBody, GiftInput, GiftCheckBoxWrapper } from '../../../components/StyledGifts'
 import { FormButton, LabelForm } from '../../../components/FormContainer'
 
 export const AddGiftForm = ({ listId, refreshState }) => {
   const [giftInput, setGiftInput] = useState('')
   const [giftPrice, setGiftPrice] = useState('')
   const [giftURL, setGiftURL] = useState('')
+  const [toOther, setToOther] = useState(false)
   const { getAccessTokenSilently } = useAuth0()
+
+  const handleCheckbox = (event) => {
+    setToOther(event.target.checked)
+  }
 
   const hadnleForm = async (event) => {
     event.preventDefault()
@@ -17,7 +22,8 @@ export const AddGiftForm = ({ listId, refreshState }) => {
       price: parseFloat(giftPrice),
       url: giftURL,
       nombre: giftInput,
-      list: listId
+      list: listId,
+      toOther
     }
 
     const token = await getAccessTokenSilently()
@@ -37,6 +43,10 @@ export const AddGiftForm = ({ listId, refreshState }) => {
     <GiftFormBody>
       <h5>Añade un nuevo regalo</h5>
       <GiftForm onSubmit={hadnleForm}>
+        <GiftCheckBoxWrapper>
+          <LabelForm htmlFor='forOther'>Regalo para otra persona</LabelForm>
+          <input type='checkbox' onClick={handleCheckbox} name='forOther' id='forOther' />
+        </GiftCheckBoxWrapper>
         <div>
           <LabelForm htmlFor='regalo'>Regalo</LabelForm>
           <GiftInput type='text' required id='regalo' name='regalo' onChange={handleProduct} value={giftInput} placeholder='Regalo' />

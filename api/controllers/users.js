@@ -3,7 +3,7 @@ const handleLogin = require('../middleware/handleLogin')
 const userRouter = require('express').Router()
 const User = require('../models/User')
 
-userRouter.get('/:list', async (request, response) => {
+userRouter.get('/:list', validateToken, async (request, response) => {
   const { list } = request.params
   const users = await User.find({ lists: { $in: list } })
   response.status(200).json(users)

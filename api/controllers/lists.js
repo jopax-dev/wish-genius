@@ -37,7 +37,7 @@ listRouter.get('/:list', validateToken, handleLogin, async (request, response) =
       })
       .populate({
         path: 'regalos',
-        select: 'uid cid nombre price comprado url',
+        select: 'uid cid nombre price comprado url toOther',
         model: 'Regalo'
       })
     response.status(200).json(reqList)

@@ -13,7 +13,6 @@ pagosRouter.post('/', validateToken, handleLogin, async (request, response, next
   const uid = user.id
   const updatedList = userList
     .map(user => {
-      console.log(user)
       if ((user.user.toString() !== uid) && (user.user.toString() !== propietarioId)) {
         if (user.aPagar.some(obj => obj.usuarioAPagar.toString() === uid)) {
           user.aPagar.forEach(apagar => {

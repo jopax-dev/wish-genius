@@ -19,7 +19,8 @@ export const useGifts = () => {
     const { listId: list, numberUsers } = listInfo
     const { price, uid, id } = gift
     const applicant = uid
-    const toPay = price / (numberUsers - 1)
+    const splitBy = gift.toOther ? numberUsers : numberUsers - 1
+    const toPay = price / (splitBy)
     const paid = price
     const giftId = id
     const data = { giftId, list, paid, applicant, toPay }

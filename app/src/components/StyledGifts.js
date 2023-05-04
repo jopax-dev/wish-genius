@@ -13,7 +13,7 @@ export const GiftForm = styled.form`
 display: grid;
 grid-auto-rows: 5rem;
 gap: 1rem;
-grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
 grid-auto-flow: dense;
 justify-items: center;
 align-items: center;
@@ -82,9 +82,33 @@ export const GiftData = styled.div`
   }
 `
 
+export const ButtonPanel = styled.button`
+background-color: ${theme.bgTertiaryColor};
+border: none;
+width: 95%;
+padding: 10px 0px;
+box-shadow: 2px 2px 2px ${theme.darkBoxShadow};
+color: ${theme.darkTextColor};
+margin-right: 5px;
+margin-bottom: 5px;
+
+&:hover{
+  color: #222;
+}
+`
+
 export const AlreadyBought = styled.span`
   padding: 10px 0px;
   margin-right: 5px;
+`
+
+export const GiftCheckBoxWrapper = styled.div`
+grid-column: 1 / -1;
+
+input{
+  transform: scale(1.5);
+  margin: 0px 10px;
+}
 `
 
 export const BoughtGift = styled.p`

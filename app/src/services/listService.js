@@ -34,7 +34,7 @@ export const createList = async ({ token, listName }) => {
     body: JSON.stringify(newList)
   }
   try {
-    const response = await fetch(`${baseUrl}/lists/`, config)
+    const response = await fetch(`${baseUrl}/lists`, config)
     const data = await response.json()
     if (!response.ok) {
       throw new Error(data)

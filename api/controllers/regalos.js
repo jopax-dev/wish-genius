@@ -27,7 +27,7 @@ regalosRoute.post('/', validateToken, handleLogin, async (request, response, nex
       error: 'missing content'
     })
   }
-  const { userId, price, url, list, nombre } = request.body
+  const { userId, price, url, list, nombre, toOther } = request.body
   const lista = await Lista.findById(list)
   const user = await User.findOne({ userId })
 
@@ -37,7 +37,8 @@ regalosRoute.post('/', validateToken, handleLogin, async (request, response, nex
     price,
     url,
     nombre,
-    list
+    list,
+    toOther
   })
   try {
     const savedRegalo = await newRegalo.save()
