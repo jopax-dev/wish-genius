@@ -1,17 +1,17 @@
 const listRouter = require('express').Router()
-const Lista = require('../models/Lista')
+const List = require('../models/List')
 const User = require('../models/User')
 const handleLogin = require('../middleware/handleLogin')
 const generateRandomHash = require('./helpers')
 const validateToken = require('../middleware/validateToken')
-const Regalo = require('../models/Regalo')
+const Gift = require('../models/Gift')
 
 listRouter.get('/', validateToken, handleLogin, async (request, response) => {
   const { userId } = request.body
   const user = await User.findOne({ userId })
   const { lists } = user
   const listPromises = lists.map(async (list) => {
-    const data = await Lista.findById(list).select('_id title')
+    const data = await List.findById(list).select('_id title')
     if (data) {
       return (data)
     }
@@ -24,7 +24,7 @@ listRouter.get('/', validateToken, handleLogin, async (request, response) => {
 listRouter.get('/:list', validateToken, handleLogin, async (request, response) => {
   const { list } = request.params
   try {
-    const reqList = await Lista.findOne({ _id: list })
+    const reqList = await List.findOne({ _id: list })
       .populate({
         path: 'userList.user',
         select: 'name userId id email',
@@ -37,8 +37,8 @@ listRouter.get('/:list', validateToken, handleLogin, async (request, response) =
       })
       .populate({
         path: 'regalos',
-        select: 'uid cid nombre price comprado url toOther',
-        model: 'Regalo'
+        select: 'uid cid gift price present url toOther',
+        model: 'Gift'
       })
     response.status(200).json(reqList)
   } catch (error) {
@@ -60,7 +60,7 @@ listRouter.post('/', validateToken, handleLogin, async (request, response, next)
   const updatedUserlist = userList.concat({ user: user._id, aPagar: [], pagado: 0 })
 
   try {
-    const newList = new Lista({
+    const newList = new List({
       title,
       userList: updatedUserlist,
       regalos,
@@ -82,15 +82,15 @@ listRouter.post('/', validateToken, handleLogin, async (request, response, next)
 listRouter.delete('/:id', validateToken, handleLogin, async (request, response, next) => {
   const id = request.params.id
   try {
-    const lista = await Lista.findById(id)
+    const list = await List.findById(id)
 
-    if (!lista) return response.status(404).json({ Error: 'la lista no existe' })
+    if (!list) return response.status(404).json({ Error: 'la lista no existe' })
 
-    const pendingGifts = await Regalo.find({ list: id, comprado: false })
+    const pendingGifts = await Gift.find({ list: id, bought: false })
     if (pendingGifts.length > 0) {
       return response.status(403).json({ Error: 'la lista aun tiene regalos por comprar' })
     }
-    await Lista.findByIdAndDelete(id)
+    await List.findByIdAndDelete(id)
     await User.updateMany(
       { lists: id },
       { $pull: { lists: id } }

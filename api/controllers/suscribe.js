@@ -1,5 +1,5 @@
 const suscribeRouter = require('express').Router()
-const Lista = require('../models/Lista')
+const List = require('../models/List')
 const User = require('../models/User')
 const handleLogin = require('../middleware/handleLogin')
 const validateToken = require('../middleware/validateToken')
@@ -8,13 +8,13 @@ const generateRandomHash = require('./helpers')
 suscribeRouter.post('/:id', validateToken, handleLogin, async (request, response, next) => {
   const { id } = request.params
 
-  const list = await Lista.findById({ _id: id })
+  const list = await List.findById({ _id: id })
   if (!list) { return response.status(404).json({ Error: 'list not found' }) }
 
   const { _id, hash } = list
   const invitationHash = await generateRandomHash()
 
-  await Lista.findByIdAndUpdate({ _id }, { $push: { invitationHash } }, { new: true })
+  await List.findByIdAndUpdate({ _id }, { $push: { invitationHash } }, { new: true })
 
   const data = {
     hash,
@@ -29,14 +29,14 @@ suscribeRouter.post('/:hash/:invitationHash', validateToken, handleLogin, async 
 
   const user = await User.findOne({ userId })
   const idUser = user._id
-  const returnedList = await Lista.findOne({ hash, invitationHash: { $in: [invitationHash] } })
+  const returnedList = await List.findOne({ hash, invitationHash: { $in: [invitationHash] } })
 
   if (!returnedList) { return response.status(404).json('Error: no es posible acceder a esa lista') }
   if (returnedList.userList.some(user => user.user.toHexString() === idUser)) { return response.status(409).end() }
 
   const listId = returnedList._id
   try {
-    const updatedList = await Lista.findByIdAndUpdate(
+    const updatedList = await List.findByIdAndUpdate(
       { _id: listId },
       {
         $pull: { invitationHash },

@@ -9,13 +9,12 @@ const EmptyList = () => {
   )
 }
 
-export const Gifts = ({ gifstList, listInfo, refreshState }) => {
-  if (gifstList.every(item => item === false)) return <EmptyList />
-  console.log({ gifstList })
+export const Gifts = ({ giftsList, listInfo, refreshState }) => {
+  if (giftsList.every(item => item === false)) return <EmptyList />
   return (
     <GiftContainer>
-      {gifstList
-        .filter(gift => !gift.comprado)
+      {giftsList
+        .filter(gift => !gift.bought)
         .map((gift) => {
           const userName = listInfo.userList.find(user => user.user.uid === gift.uid)
 

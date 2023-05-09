@@ -13,7 +13,7 @@ export const useLists = () => {
     const getLists = async () => {
       const token = await getAccessTokenSilently()
       const lists = await getAllLists({ token })
-      setAllLists(lists)
+      if (lists) setAllLists(lists)
     }
 
     getLists()

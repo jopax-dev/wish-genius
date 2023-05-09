@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 
-const regaloSchema = new Schema({
+const giftSchema = new Schema({
   uid: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -14,7 +14,7 @@ const regaloSchema = new Schema({
     type: Number,
     required: true
   },
-  nombre: {
+  present: {
     type: String,
     required: true
   },
@@ -23,9 +23,9 @@ const regaloSchema = new Schema({
   },
   list: {
     type: Schema.Types.ObjectId,
-    ref: 'Lista'
+    ref: 'List'
   },
-  comprado: {
+  bought: {
     type: Boolean,
     default: false
   },
@@ -35,7 +35,7 @@ const regaloSchema = new Schema({
   }
 })
 
-regaloSchema.set('toJSON', {
+giftSchema.set('toJSON', {
   transform: (document, object) => {
     object.id = object._id
     delete object._id
@@ -43,6 +43,6 @@ regaloSchema.set('toJSON', {
   }
 })
 
-const Regalo = model('Regalo', regaloSchema)
+const Gift = model('Gift', giftSchema)
 
-module.exports = Regalo
+module.exports = Gift

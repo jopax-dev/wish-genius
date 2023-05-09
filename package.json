@@ -1,6 +1,6 @@
 {
   "name": "wish-genius",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": true,
   "description": "Wish genius App",
   "workspaces": [
@@ -12,6 +12,7 @@
     "build": "npm run build --workspace=app",
     "dev": "npm run dev --workspace=api",
     "start": "npm run start --workspace=app",
+    "prod": "npm run start --workspace=api",
     "dev:api": "npm run build && npm run dev --workspace=api",
     "lint": "standard --fix '/app/**/*.js' '/app/**/*.jsx' '/api/**/*.js' '/api/**/*.jsx'"
   },

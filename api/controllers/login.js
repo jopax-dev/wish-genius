@@ -6,11 +6,8 @@ const handleLogin = require('../middleware/handleLogin')
 loginRouter.post('/', validateToken, handleLogin, async (request, response) => {
   console.log(request.body)
   const { name, email, userId } = request.body
-  console.log({ userId })
-  console.log(name)
 
   const user = await User.findOne({ email })
-  console.log(user)
 
   if (user) return response.status(409).send('User already exists')
 

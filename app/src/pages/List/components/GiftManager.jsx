@@ -13,7 +13,7 @@ export const GiftManager = ({ list, refreshState }) => {
   return (
     <>
       <AddGiftForm refreshState={refreshState} listId={list.id} />
-      <Gifts refreshState={refreshState} listInfo={listInfo} gifstList={list.regalos} />
+      <Gifts refreshState={refreshState} listInfo={listInfo} giftsList={list.regalos} />
       <GiftAlreadyPurchased userList={list.userList} giftstList={list.regalos} />
     </>
   )

@@ -24,7 +24,7 @@ const listaSchema = new Schema({
   }],
   regalos: [{
     type: Schema.Types.ObjectId,
-    ref: 'Regalo'
+    ref: 'Gift'
   }],
   hash: {
     type: String,
@@ -43,6 +43,6 @@ listaSchema.set('toJSON', {
   }
 })
 
-const Lista = model('Lista', listaSchema)
+const List = model('List', listaSchema)
 
-module.exports = Lista
+module.exports = List

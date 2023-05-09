@@ -4,7 +4,7 @@ export const GiftAlreadyPurchased = ({ giftstList, userList }) => {
   return (
     <div>
       {giftstList
-        .filter(gift => gift.comprado)
+        .filter(gift => gift.bought)
         .map((gift, key) => {
           const userName = userList.find(user => user.user.uid === gift.uid)
           return (

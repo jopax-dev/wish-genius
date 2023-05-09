@@ -16,14 +16,14 @@ export const useGifts = () => {
 
   const purchased = async ({ info }) => {
     const { gift, listInfo } = info
-    const { listId: list, numberUsers } = listInfo
+    const { listId, numberUsers } = listInfo
     const { price, uid, id } = gift
     const applicant = uid
     const splitBy = gift.toOther ? numberUsers : numberUsers - 1
     const toPay = price / (splitBy)
     const paid = price
     const giftId = id
-    const data = { giftId, list, paid, applicant, toPay }
+    const data = { giftId, listId, paid, applicant, toPay }
     const token = await getAccessTokenSilently()
 
     await buyGift({ data, token })

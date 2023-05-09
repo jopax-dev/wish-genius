@@ -18,7 +18,7 @@ const userSchema = new Schema({
   },
   lists: [{
     type: Schema.Types.ObjectId,
-    ref: 'Lista'
+    ref: 'List'
   }]
 })
 

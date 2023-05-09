@@ -1,0 +1,9 @@
+version: '2.13.0'
+services:
+  wish-genius:
+    build:
+      context: .
+    env_file:
+      - .env.example
+    ports:
+      - "3000:3000"

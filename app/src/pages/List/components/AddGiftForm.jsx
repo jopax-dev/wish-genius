@@ -21,8 +21,8 @@ export const AddGiftForm = ({ listId, refreshState }) => {
     const newGift = {
       price: parseFloat(giftPrice),
       url: giftURL,
-      nombre: giftInput,
-      list: listId,
+      present: giftInput,
+      listId,
       toOther
     }
 
